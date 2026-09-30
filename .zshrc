@@ -234,3 +234,13 @@ bindkey '^[OF' end-of-line
 . "$HOME/.atuin/bin/env"
 
 eval "$(atuin init zsh)"
+
+# Provides the ability to change the current working directory when exiting Yazi
+function y() {
+	local tmp cwd; tmp="$(mktemp -t "yazi-cwd.XXXXXX")"
+	command yazi "$@" --cwd-file="$tmp"
+	IFS= read -r -d '' cwd < "$tmp"
+	[ "$cwd" != "$PWD" ] && [ -d "$cwd" ] && builtin cd -- "$cwd" || builtin true
+	command rm -f -- "$tmp"
+}
+
