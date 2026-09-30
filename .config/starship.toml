@@ -1,0 +1,389 @@
+"$schema" = 'https://starship.rs/config-schema.json'
+
+format = """
+$character[](fg:col_dir)\
+$directory[](fg:col_dir bg:col_git)$git_branch$git_status\
+[](fg:col_git)\
+$all\
+$status\
+$cmd_duration\
+$time\
+$line_break\
+[  ](fg:col_wht)
+"""
+
+# Doesn't go well with terminal resizing :(
+# right_format = """
+# $cmd_duration\
+# """
+
+command_timeout = 1000
+
+# ============================ [ COLOR PALETTE ] ============================ #
+
+palette = 'posh_color'
+
+[palettes.posh_color]
+col_wht = '#ffffff'
+col_blk = '#000000'
+# col_usr = '5'
+col_usr = '#ffce6a'
+col_dir = '#ff7d0b'
+col_git = '#89B4FA'
+# col_chk = '5'
+col_chk = '#A6E3A1'
+
+col_red = '#f16565'
+col_ylo = '#F9E2AF'
+# ANSI Color Magenta
+# https://i.sstatic.net/KTSQa.png
+col_blu = '5'
+# col_blu = '#89B4FA'
+col_grn = '#A6E3A1'
+col_pnk = '#F5C2E7'
+
+col_vim_err = '#f16565'
+col_vim_ins = '#A6E3A1'
+col_vim_nor = '#89B4FA'
+col_vim_vis = '#e78ef5'
+col_vim_rep = '#ffa74d'
+
+col_vifm = '#ff7d0b' # Color coded to col_dir. VIFM is related to dir
+col_sudo = '#ff0101' # Very important information. Signal for danger
+col_fish = '#1a2d4c' # That incognito look
+
+# ============================ [ PROMPT DESIGN ] ============================ #
+
+[fill]
+symbol = ' '
+style = 'bold black'
+
+[os]
+disabled = true
+style = "bg:col_usr fg:col_blk"
+
+[username]
+show_always = false
+style_user = "bg:col_usr fg:col_blk"
+style_root = "bg:col_usr fg:col_blk"
+format = '[ $user ]($style)'
+
+[directory]
+read_only = "󰌾 "
+style = "bg:col_dir fg:col_wht"
+format = "[ 🖿 $path ]($style)[$read_only](fg:col_ylo bg:col_dir)"
+truncation_length = 2
+# truncation_symbol = "…/"
+
+[jobs]
+symbol = ' '
+format = '[ $symbol$number ]($style)'
+
+[status]
+symbol = '[](fg:col_red)[  ](bg:col_red fg:col_wht)[](fg:col_red)'
+success_symbol = '[](fg:col_chk)[  ](bg:col_chk fg:col_blk)[](fg:col_chk)'
+not_executable_symbol = '[](fg:col_red)[  ](bg:col_red fg:col_wht)[](fg:col_red)'
+not_found_symbol =	'[](fg:col_ylo)[  ](bg:col_ylo fg:col_blk)[](fg:col_ylo)'
+sigint_symbol =	'[](fg:col_red)[  ](bg:col_red fg:col_wht)[](fg:col_red)' # Interrupt Signal (ctrl+c)
+signal_symbol = '[](fg:col_ylo)[  ](bg:col_ylo fg:col_blk)[](fg:col_ylo)'
+style = "bg:col_chk fg:col_blk"
+format = '[$symbol]($style)'
+map_symbol = true
+disabled = false
+
+[cmd_duration]
+min_time = 1000
+show_milliseconds = false
+disabled = false
+style = "bold italic col_ylo"
+format = " took [$duration]($style)"
+
+[character]
+# Added extra space after symbol because of NerdFont's extra width
+success_symbol = "[](col_usr)[ 󰣇  ](fg:col_blk bg:col_usr)[](fg:col_usr)"
+error_symbol = "[](col_vim_err)[   ](fg:col_wht bg:col_vim_err)[](fg:col_vim_err)"
+# success_symbol = "[ INSERT ](fg:bold col_blk bg:col_vim_ins) "
+# error_symbol = "[ ERROR ](fg:bold col_wht bg:col_vim_err) "
+vimcmd_symbol ="[](col_vim_nor)[   ](fg:bold black bg:col_vim_nor)[](fg:col_vim_nor)"
+vimcmd_replace_one_symbol = "[](col_vim_rep)[   ](fg:bold black bg:col_vim_rep)[](fg:col_vim_rep)"
+vimcmd_replace_symbol = "[](col_vim_rep)[   ](fg:bold black bg:col_vim_rep)[](fg:col_vim_rep)"
+vimcmd_visual_symbol = "[](col_vim_vis)[   ](fg:bold black bg:col_vim_vis)[](fg:col_vim_vis)"
+format = '$symbol'
+disabled = false
+
+# ============================== [ OS ICONS ] ============================== #
+
+[os.symbols]
+Alpaquita     = "   "
+Alpine        = "   "
+Amazon        = "   "
+Android       = "   "
+Arch          = "   "
+Artix         = "   "
+CentOS        = "   "
+Debian        = "   "
+DragonFly     = "   "
+Emscripten    = "   "
+EndeavourOS   = "   "
+Fedora        = "   "
+FreeBSD       = "   "
+Garuda        = " 󰛓  "
+Gentoo        = "   "
+HardenedBSD   = " 󰞌  "
+Illumos       = " 󰈸  "
+Linux         = "   "
+Mabox         = "   "
+Macos         = "   "
+Manjaro       = "   "
+Mariner       = "   "
+MidnightBSD   = "   "
+Mint          = "   "
+NetBSD        = "   "
+NixOS         = "   "
+OpenBSD       = " 󰈺  "
+openSUSE      = "   "
+OracleLinux   = " 󰌷  "
+Pop           = "   "
+Raspbian      = "   "
+Redhat        = "   "
+Redox         = " 󰀘  "
+Solus         = " 󰠳  "
+SUSE          = "   "
+Ubuntu        = "   "
+Unknown       = "   "
+Windows       = " 󰍲  "
+
+
+# ============================== [ GIT ICONS ] ============================== #
+
+[git_branch]
+symbol        = " "
+style         = "fg:col_blk bg:col_git"
+format        = '[ $symbol$branch(:$remote_branch)]($style)'
+ignore_branches = ['master', 'main']
+
+[git_status]
+staged        = ' ${count} '
+deleted       = ' ${count} '
+renamed       = ' ${count} '
+modified      = ' ${count} '
+untracked     = ' ${count} '
+stashed       = ' '
+diverged      = ' '
+up_to_date    = ''
+ahead         = ' ${count} '
+behind        = ' ${count} '
+style         = "fg:col_blk bg:col_git"
+format        = '[ $all_status$ahead_behind]($style)'
+
+# ============================ [ OTHER MODULES ] ============================ #
+
+[time]
+disabled = false
+style = "fg:col_blu bold"
+format = ' at [$time]($style) '
+time_format = '%r'
+use_12hr = true
+# utc_time_offset = '-5'
+# time_range = '09:00:00-18:00:00'
+
+# ================== [ LAANGUAGES AND TECHNOLOGIES ICONS ] ================== #
+
+[aws]
+symbol        = "🅰 "
+format        = '[ $symbol$profile ]($style)'
+
+[azure]
+symbol        = "󰠅 "
+format        = '[ $symbol($subscription) ]($style)'
+disabled      = true
+
+[buf]
+symbol        = " "
+format        = '[ $symbol$version ]($style)'
+
+[bun]
+symbol        = " "
+format        = '[ $symbol$version ]($style)'
+
+[c]
+symbol        = " "
+format        = '[ $symbol($version(-$name)) ]($style)'
+
+[cmake]
+symbol        = "△ "
+format        = '[ $symbol($version) ]($style)'
+
+[conda]
+symbol        = " "
+format        = '[ $symbol$environment ]($style)'
+
+[container]
+symbol        = "⬢ "
+format        = '[ $symbol\[$name\] ]($style)'
+
+[crystal]
+symbol        = " "
+format        = '[ $symbol($version) ]($style)'
+
+[daml]
+symbol        = "Λ "
+format        = '[ $symbol($version) ]($style)'
+
+[dart]
+symbol        = " "
+format        = '[ $symbol($version) ]($style)'
+
+[deno]
+symbol        = "󱔎 "
+format        = '[ $symbol($version) ]($style)'
+
+[docker_context]
+symbol        = " "
+format        = '[ $symbol$context ]($style)'
+
+# 410 ms
+[elixir]
+symbol        = ""
+format        = '[ $symbol Elixir ]($style)' # 0 ms
+disabled      = true
+
+# 4 ms
+[custom.elixir_optimized]
+symbol        = " "
+format        = '[ $symbol(v$output) ]($style)'
+command       = "elixir --short-version 2>/dev/null"
+when          = "test -f mix.exs"
+style         = 'bold purple'
+# disabled      = true
+
+[elm]
+symbol        = " "
+format        = '[ $symbol($version) ]($style)'
+
+[fennel]
+symbol        = " "
+format        = '[ $symbol$version ]($style)'
+
+[fossil_branch]
+symbol        = " "
+format        = '[ $symbol$version ]($style)'
+
+[golang]
+symbol        = " "
+format        = '[ $symbol$version ]($style)'
+
+[guix_shell]
+symbol        = " "
+format        = '[ $symbol$version ]($style)'
+
+[haskell]
+symbol        = " "
+format        = '[ $symbol$version ]($style)'
+
+[haxe]
+symbol        = " "
+format        = '[ $symbol$version ]($style)'
+
+[helm]
+symbol        = "⎈ "
+format        = '[ $symbol$version ]($style)'
+
+[hg_branch]
+symbol        = " "
+format        = '[ $symbol$version ]($style)'
+
+[hostname]
+ssh_symbol    = " "
+format        = '[ $ssh_symbol$hostname ]($style)'
+# trim_at       = '.companyname.com'
+
+[java]
+symbol        = " "
+format        = '[ $symbol$version ]($style)'
+
+[julia]
+symbol        = " "
+format        = '[ $symbol$version ]($style)'
+
+[kotlin]
+symbol        = " "
+format        = '[ $symbol$version ]($style)'
+
+[kubernetes]
+symbol        = "☸ "
+format        = '[ $symbol$context(\($namespace\)) ]($style)'
+disabled      = true
+
+[lua]
+symbol        = " "
+format        = '[ $symbol$version ]($style)'
+
+[memory_usage]
+symbol        = "󰍛 "
+format        = '[ $symbol$version ]($style)'
+
+[meson]
+symbol        = "󰔷 "
+format        = '[ $symbol$version ]($style)'
+
+[nim]
+symbol        = "󰆥 "
+format        = '[ $symbol$version ]($style)'
+
+[nix_shell]
+symbol        = " "
+format        = '[ $symbol$version ]($style)'
+
+[nodejs]
+symbol        = " "
+format        = '[ $symbol$version ]($style)'
+
+[ocaml]
+symbol        = " "
+format        = '[ $symbol$version ]($style)'
+
+[package]
+symbol        = " "
+format        = '[ $symbol$version ]($style)'
+
+[perl]
+symbol        = " "
+format        = '[ $symbol$version ]($style)'
+
+[php]
+symbol        = " "
+format        = '[ $symbol$version ]($style)'
+
+[pijul_channel]
+symbol        = " "
+format        = '[ $symbol$version ]($style)'
+
+[python]
+symbol        = " "
+format        = '[ ${symbol}${pyenv_prefix}(${version})(\($virtualenv\)) ]($style)'
+
+[rlang]
+symbol        = "󰟔 "
+format        = '[ $symbol$version ]($style)'
+
+[ruby]
+symbol        = " "
+format        = '[ $symbol$version ]($style)'
+
+[rust]
+symbol        = " "
+format        = '[ $symbol$version ]($style)'
+
+[scala]
+symbol        = " "
+format        = '[ $symbol$version ]($style)'
+
+[swift]
+symbol        = " "
+format        = '[ $symbol$version ]($style)'
+
+[zig]
+symbol        = " "
+format        = '[ $symbol$version ]($style)'
+
