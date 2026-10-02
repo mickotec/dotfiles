@@ -225,11 +225,27 @@ if [[ -f "$HOME/.zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
     source "$HOME/.zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh"
 fi
 
-# Fix Home/End keys printing '~'
+# Terminal Keybindings: Home, End, Delete, and Word Navigation
+# (Kitty sends ^[[H / ^[OH; Tmux translates to ^[[1~ / ^[[4~)
 bindkey '^[[H' beginning-of-line
-bindkey '^[[F' end-of-line
 bindkey '^[OH' beginning-of-line
+bindkey '^[[1~' beginning-of-line
+bindkey '^[[7~' beginning-of-line
+
+bindkey '^[[F' end-of-line
 bindkey '^[OF' end-of-line
+bindkey '^[[4~' end-of-line
+bindkey '^[[8~' end-of-line
+
+bindkey '^[[3~' delete-char
+
+# Ctrl+Left / Ctrl+Right word navigation
+bindkey '^[[1;5D' backward-word
+bindkey '^[[1;5C' forward-word
+bindkey '^[[5D' backward-word
+bindkey '^[[5C' forward-word
+bindkey '^[^[[D' backward-word
+bindkey '^[^[[C' forward-word
 
 . "$HOME/.atuin/bin/env"
 
